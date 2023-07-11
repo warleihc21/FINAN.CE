@@ -10,13 +10,17 @@ import os
 from django.conf import settings
 from weasyprint import HTML
 from io import BytesIO
+from django.contrib.auth.decorators import login_required
 
+@login_required(login_url='/auth/logar/')
 def novo_valor(request):
     if request.method == 'GET':
-        contas = Conta.objects.all()
+        user = request.user
+        contas = Conta.objects.filter(user=user)
         categorias = Categoria.objects.all()
         return render(request, 'novo_valor.html', {'contas': contas, 'categorias': categorias})
     elif request.method == 'POST':
+        user = request.user
         valor = request.POST.get('valor')
         categoria = request.POST.get('categoria')
         descricao = request.POST.get('descricao')
@@ -25,6 +29,7 @@ def novo_valor(request):
         tipo = request.POST.get('tipo')
 
         valores = Valores(
+            user=user,
             valor=valor, 
             categoria_id=categoria,
             descricao=descricao,
@@ -44,9 +49,6 @@ def novo_valor(request):
 
         conta.save()
 
-
-
-
         if tipo == 'E':
             messages.add_message(request, constants.SUCCESS, 'Entrada cadastrada com sucesso!')
         elif tipo == 'S':
@@ -55,8 +57,10 @@ def novo_valor(request):
         return redirect('/extrato/novo_valor')
     
 
+@login_required(login_url='/auth/logar/')
 def view_extrato(request):
-    contas = Conta.objects.all()
+    user = request.user
+    contas = Conta.objects.filter(user=user)
     categorias = Categoria.objects.all()
 
     conta_get = request.GET.get('conta')
@@ -72,8 +76,7 @@ def view_extrato(request):
     else:
         period_delta = None     
 
-        
-    valores = Valores.objects.filter(data__month=datetime.now().month)
+    valores = Valores.objects.filter(user=user, data__month=datetime.now().month)
 
     if conta_get:
         valores = valores.filter(conta__id=conta_get)
@@ -91,20 +94,18 @@ def view_extrato(request):
     return render(request, 'view_extrato.html', {'valores': valores, 'contas': contas, 'categorias': categorias})
 
 
-
+@login_required(login_url='/auth/logar/')
 def exportar_pdf(request):
-    valores = Valores.objects.filter(data__month=datetime.now().month)
+    user = request.user
+    valores = Valores.objects.filter(user=user, data__month=datetime.now().month)
 
-    
     path_template = os.path.join(settings.BASE_DIR, 'templates/partials/extrato.html')
     template_render = render_to_string(path_template, {'valores': valores}) 
 
     path_output = BytesIO()
 
-       
     HTML(string=template_render).write_pdf(path_output)
 
     path_output.seek(0)
-    
 
     return FileResponse(path_output, filename="extrato.pdf")

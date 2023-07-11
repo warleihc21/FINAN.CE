@@ -1,13 +1,16 @@
 from django.db import models
 from datetime import datetime
 from django.db.models import Sum
+from django.contrib.auth.models import User
 
-# Create your models here.
+
+
 
 class Categoria(models.Model):
     categoria = models.CharField(max_length=50)
     essencial = models.BooleanField(default=False)
     valor_planejamento = models.FloatField(default=0)
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
 
     def __str__(self):
         return self.categoria
@@ -45,6 +48,7 @@ class Conta(models.Model):
     tipo = models.CharField(max_length=2, choices=tipo_choices)
     valor = models.FloatField()
     icone = models.ImageField(upload_to='icones')
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
 
     def __str__(self):
         return self.apelido

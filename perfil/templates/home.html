@@ -7,6 +7,8 @@
 
 {% endblock %}
 
+{% block 'title' %}Home{% endblock %}
+
 {% block 'body' %}
     <div class="container">
         <br>
@@ -70,7 +72,7 @@
                         
                     </div>
                     <hr class="hr-borda">
-                    <a href="{% url 'gerenciar' %}" class="botao-principal">Gerenciar contas</a>
+                    <a href="{% url 'gerenciar' %}" class="botao-principal">Gerenciar contas bancárias</a>
                 </div>
                 
             </div>
@@ -148,8 +150,8 @@
                     <span class="fonte-destaque">Gerenciar contas</span>
                     <hr class="hr-borda">
 
-                    <span class="fonte-destaque">Próximas do vencimento</span>
-                    <span class="fonte-light">3 contas próximas do vencimento</span>
+                    <span class="fonte-destaque" style="color: #ff7f00;">Próximas do vencimento</span>
+                    <span class="fonte-light">{{contas_proximas_vencimento.count}} contas próximas do vencimento</span>
                     <br>
                     <span class="fonte-destaque negativo">Vencidas</span>
                     <span class="fonte-light">{{ contas_vencidas.count }} contas vencidas</span>
@@ -157,6 +159,8 @@
                     <hr class="hr-borda">
                     
                     <a href="{% url 'ver_contas' %}" class="botao-principal">Ver mais</a>
+                    <br>
+                    <a href="{% url 'definir_contas' %}" class="botao-principal">Adicionar contas mensais</a>
 
                 </div>
             </div>
