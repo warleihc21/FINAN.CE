@@ -66,7 +66,7 @@ def pagar_conta(request, conta_id):
     user = request.user
     
     conta = ContaPagar.objects.get(pk=conta_id, user=user)
-    conta_paga = ContaPaga(conta=conta, data_pagamento=datetime.now())
+    conta_paga = ContaPaga(conta=conta, data_pagamento=datetime.now(), user=user)
     conta_paga.save()
     messages.add_message(request, constants.SUCCESS, 'Conta marcada como paga')
     return redirect('/contas/ver_contas')
