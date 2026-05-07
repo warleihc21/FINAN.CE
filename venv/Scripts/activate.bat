@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=E:\NOVOS PROJETOS EM PYTHON\finan.ce\venv
+set VIRTUAL_ENV=D:\NOVOS PROJETOS EM PYTHON\FINAN.CE\venv
 
 if not defined PROMPT set PROMPT=$P$G
 

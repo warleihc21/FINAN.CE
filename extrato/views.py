@@ -8,7 +8,6 @@ from datetime import datetime, timedelta
 from django.template.loader import render_to_string
 import os
 from django.conf import settings
-from weasyprint import HTML
 from io import BytesIO
 from django.contrib.auth.decorators import login_required
 
@@ -96,6 +95,18 @@ def view_extrato(request):
 
 @login_required(login_url='/auth/logar/')
 def exportar_pdf(request):
+    try:
+        from weasyprint import HTML  # pyright: ignore[reportMissingImports]
+    except OSError:
+        messages.add_message(
+            request,
+            constants.ERROR,
+            'Geração de PDF indisponível: instale o GTK3 Runtime no Windows '
+            '(https://github.com/tschoonj/GTK-for-Windows-Runtime-Environment-Installer/releases) '
+            'e reinicie o servidor.'
+        )
+        return redirect('/extrato/view_extrato')
+
     user = request.user
     valores = Valores.objects.filter(user=user, data__month=datetime.now().month)
 
