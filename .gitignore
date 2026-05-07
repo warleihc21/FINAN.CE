@@ -1,0 +1,122 @@
+# ============================================================
+# Python
+# ============================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+.eggs/
+dist/
+build/
+develop-eggs/
+downloads/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.manifest
+*.spec
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ============================================================
+# Ambientes virtuais
+# ============================================================
+venv/
+env/
+ENV/
+.venv/
+.env.local
+.python-version
+
+# ============================================================
+# Variáveis de ambiente / segredos
+# ============================================================
+.env
+.env.*
+!.env.example
+
+# ============================================================
+# Django
+# ============================================================
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+static/
+
+# Migrations geradas automaticamente NÃO devem ser ignoradas
+# (deixe comentado — só descomente se souber o que está fazendo)
+# */migrations/*.py
+# !*/migrations/__init__.py
+
+# ============================================================
+# Cobertura de testes
+# ============================================================
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# ============================================================
+# IDEs / Editores
+# ============================================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ============================================================
+# Cursor
+# ============================================================
+.cursor/
+
+# ============================================================
+# Jupyter / Notebooks
+# ============================================================
+.ipynb_checkpoints
+profile_default/
+ipython_config.py
+
+# ============================================================
+# mypy / pyre / ruff
+# ============================================================
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+.ruff_cache/
+
+# ============================================================
+# Outros
+# ============================================================
+celerybeat-schedule
+celerybeat.pid
+*.sage.py
+instance/
+.webassets-cache
+.scrapy
+docs/_build/
+.pybuilder/
+target/
